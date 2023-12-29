@@ -13,29 +13,26 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using System.Windows.Threading; // import the threading name space to use the dispatcher time
+using System.Windows.Threading; // для использования времени работы деспетчера
 
 namespace Pacman
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
 
-        DispatcherTimer gameTimer = new DispatcherTimer(); // create a new instance of the dispatcher timer called game timer
+        DispatcherTimer gameTimer = new DispatcherTimer(); // создаем новый диспетчерский таймер
 
-        bool goLeft, goRight, goDown, goUp; // 4 boolean created to move player in 4 direction
-        bool noLeft, noRight, noDown, noUp; // 4 more boolean created to stop player moving in that direction
+        bool goLeft, goRight, goDown, goUp; // движение по 4 направлениям 
+        bool noLeft, noRight, noDown, noUp; // остановка движения по 4 направлениям
 
-        int speed = 5; // player speed
+        int speed = 5; // скорость пакмена
 
-        Rect pacmanHitBox; // player hit box, this will be used to check for collision between player to walls, ghost and coints
+        Rect pacmanHitBox; // поле попадания игрока (для проверки столкновений с призраками, стенами и сбора монеток)
 
-        int ghostSpeed = 5; // ghost image speed
-        int ghostMoveStep = 160; // ghost step limits
-        int currentGhostStep; // current movement limit for the ghosts
-        int score = 0; // score keeping integer
+        int ghostSpeed = 10; // скорость призраков
+        int ghostMoveStep = 160; // ограничение передвижения призраков
+        int currentGhostStep; // текущее ограничение
+        int score = 0; // счетчик собранных монет
 
 
 
@@ -43,57 +40,55 @@ namespace Pacman
         {
             InitializeComponent();
 
-            GameSetUp(); // run the game set up function
+            GameSetUp(); // запуск настройки игры
         }
 
 
         private void CanvasKeyDown(object sender, KeyEventArgs e)
         {
-            // this is the key down event
 
             if (e.Key == Key.Left && noLeft == false)
             {
-                // if the left key is down and the boolean noLeft is set to false
-                goRight = goUp = goDown = false; // set rest of the direction booleans to false
-                noRight = noUp = noDown = false; // set rest of the restriction boolean to false
+                // если нажата клавиша "влево" и нет ограничения на движение влево
+                goRight = goUp = goDown = false; // все передвижения по остальным направлениям falsе
+                noRight = noUp = noDown = false; // все ограничения по остальным направлениям falsе
 
-                goLeft = true; // set go left true
+                goLeft = true; // устанавливаеи движение влево
 
-                pacman.RenderTransform = new RotateTransform(-180, pacman.Width /2, pacman.Height / 2); // rotate the pac man image to face left
+                pacman.RenderTransform = new RotateTransform(90, pacman.Width /2, pacman.Height / 2); // поворот картинки по направлению движения
             }
 
             if (e.Key == Key.Right && noRight == false)
             {
-                // if the right key pressed and no right boolean is false
-                noLeft = noUp = noDown = false; // set rest of the direction boolean to false
-                goLeft = goUp = goDown = false; // set rest of the restriction boolean to false
+                // если нажата клавиша "вправо" и нет ограничения на движение вправо
+                noLeft = noUp = noDown = false; // все передвижения по остальным направлениям falsе
+                goLeft = goUp = goDown = false; // все ограничения по остальным направлениям falsе
 
-                goRight = true; // set go right to true
+                goRight = true; // устанавливаеи движение вправо
 
-                pacman.RenderTransform = new RotateTransform(0, pacman.Width / 2, pacman.Height / 2); // rotate the pac man image to face right
-
+                pacman.RenderTransform = new RotateTransform(-90, pacman.Width / 2, pacman.Height / 2); // поворот картинки по направлению движения
             }
 
             if (e.Key == Key.Up && noUp == false)
             {
-                // if the up key is pressed and no up is set to false
-                noRight = noDown = noLeft = false; // set rest of the direction boolean to false
-                goRight = goDown = goLeft = false; // set rest of the restriction boolean to false
+                // если нажата клавиша "вверх" и нет ограничения на движение вверх
+                noRight = noDown = noLeft = false; // все передвижения по остальным направлениям falsе
+                goRight = goDown = goLeft = false; // все ограничения по остальным направлениям falsе
 
-                goUp = true; // set go up to true
+                goUp = true; // устанавливаеи движение вверх
 
-                pacman.RenderTransform = new RotateTransform(-90, pacman.Width / 2, pacman.Height / 2); // rotate the pac man character to face up
+                pacman.RenderTransform = new RotateTransform(180, pacman.Width / 2, pacman.Height / 2); // поворот картинки по направлению движения
             }
 
             if (e.Key == Key.Down && noDown == false)
             {
-                // if the down key is press and the no down boolean is false
-                noUp = noLeft = noRight = false; // set rest of the direction boolean to false
-                goUp = goLeft = goRight = false; // set rest of the restriction boolean to false
+                // если нажата клавиша "вниз" и нет ограничения на движение вниз
+                noUp = noLeft = noRight = false; // все передвижения по остальным направлениям falsе
+                goUp = goLeft = goRight = false; // все ограничения по остальным направлениям falsе
 
-                goDown = true; // set go down to true
+                goDown = true; // устанавливаеи движение вниз
 
-                pacman.RenderTransform = new RotateTransform(90, pacman.Width / 2, pacman.Height / 2); // rotate the pac man character to face down
+                pacman.RenderTransform = new RotateTransform(0, pacman.Width / 2, pacman.Height / 2); // поворот картинки по направлению движения
             }
 
 
@@ -101,190 +96,186 @@ namespace Pacman
 
         private void GameSetUp()
         {
-            // this function will run when the program loads
+            // запуск функции при загрузке программы
 
-            FirstLevel.Focus(); // set my canvas as the main focus for the program
+            FirstLevel.Focus(); // устанавливаем фокус программы на окно
 
-            gameTimer.Tick += GameLoop; // link the game loop event to the time tick
-            gameTimer.Interval = TimeSpan.FromMilliseconds(20); // set time to tick every 20 milliseconds
-            gameTimer.Start(); // start the time
-            currentGhostStep = ghostMoveStep; // set current ghost step to the ghost move step
+            gameTimer.Tick += GameLoop; // связь игры со временем
+            gameTimer.Interval = TimeSpan.FromMilliseconds(20); // устанавливаем метку на каждые 20 миллисекунд
+            gameTimer.Start(); // начало отсчета времени
+            currentGhostStep = ghostMoveStep; // устанавливаем текущий шаг призрака на шаг перемещения
 
-            // below pac man and the ghosts images are being imported from the images folder and then we are assigning the image brush to the rectangles
+            // импорт изображений
             ImageBrush pacmanImage = new ImageBrush();
-            pacmanImage.ImageSource = new BitmapImage(new Uri("E:/Daria/ЭСКТ/Pacman/Pacman/images/pacman.jpg"));
+            pacmanImage.ImageSource = new BitmapImage(new Uri("C:/Users/Pavel/Desktop/УЧЕБА/ЭСКиТП/Pacman/Pacman/images/mouse.jpg"));
             pacman.Fill = pacmanImage;
 
             ImageBrush redGhost = new ImageBrush();
-            redGhost.ImageSource = new BitmapImage(new Uri("E:/Daria/ЭСКТ/Pacman/Pacman/images/red.jpg"));
+            redGhost.ImageSource = new BitmapImage(new Uri("C:/Users/Pavel/Desktop/УЧЕБА/ЭСКиТП/Pacman/Pacman/images/cat1.jpg"));
             redghost.Fill = redGhost;
 
             ImageBrush orangeGhost = new ImageBrush();
-            orangeGhost.ImageSource = new BitmapImage(new Uri("E:/Daria/ЭСКТ/Pacman/Pacman/images/orange.jpg"));
+            orangeGhost.ImageSource = new BitmapImage(new Uri("C:/Users/Pavel/Desktop/УЧЕБА/ЭСКиТП/Pacman/Pacman/images/cat2.jpg"));
             orangeghost.Fill = orangeGhost;
 
             ImageBrush pinkGhost = new ImageBrush();
-            pinkGhost.ImageSource = new BitmapImage(new Uri("E:/Daria/ЭСКТ/Pacman/Pacman/images/pink.jpg"));
+            pinkGhost.ImageSource = new BitmapImage(new Uri("C:/Users/Pavel/Desktop/УЧЕБА/ЭСКиТП/Pacman/Pacman/images/cat3.jpg"));
             pinkghost.Fill = pinkGhost;
-
-
         }
 
         private void GameLoop(object sender, EventArgs e)
         {
 
-            // this is the game loop event, this event will control all of the movements, outcome, collision and score for the game
+            // тут начинается контроль всех движений, столкновений, счета в игре и ее итога
 
-            Score.Content = "Score: " + score; // show the scoreo to the txtscore label. 
+            Score.Content = "Score: " + score; // вывод счета на экране 
 
-            // start moving the character in the movement directions
+            // пакмен начал движение
 
             if (goRight)
             {
-                // if go right boolean is true then move pac man to the right direction by adding the speed to the left 
+                // перемещаем пакмена вправо на его скорость 
                 Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) + speed);
             }
             if (goLeft)
             {
-                // if go left boolean is then move pac man to the left direction by deducting the speed from the left
+                // перемещаем пакмена влево на его скорость
                 Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) - speed);
             }
             if (goUp)
             {
-                // if go up boolean is true then deduct the speed integer from the top position of the pac man
+                // перемещаем пакмена вверх на его скорость
                 Canvas.SetTop(pacman, Canvas.GetTop(pacman) - speed);
             }
             if (goDown)
             {
-                // if go down boolean is true then add speed integer value to the pac man top position
+                // перемещаем пакмена вниз на его скорость
                 Canvas.SetTop(pacman, Canvas.GetTop(pacman) + speed);
             }
-            // end the movement 
+            // заканчиваем движение 
 
 
-            // restrict the movement
+            // ограничения передвижения
             if (goDown && Canvas.GetTop(pacman) + 80 > Application.Current.MainWindow.Height)
             {
-                // if pac man is moving down the position of pac man is grater than the main window height then stop down movement
+                // если пакмен выходит за нижнюю границу окра 
                 noDown = true;
                 goDown = false;
             }
             if (goUp && Canvas.GetTop(pacman) < 1)
             {
-                // is pac man is moving and position of pac man is less than 1 then stop up movement
+                //  если пакмен выходит за верхнюю границу окра 
                 noUp = true;
                 goUp = false;
             }
             if (goLeft && Canvas.GetLeft(pacman) - 10 < 1)
             {
-                // if pac man is moving left and pac man position is less than 1 then stop moving left
+                //  если пакмен выходит за левую границу окра 
                 noLeft = true;
                 goLeft = false;
             }
             if (goRight && Canvas.GetLeft(pacman) + 70 > Application.Current.MainWindow.Width)
             {
-                // if pac man is moving right and pac man position is greater than the main window then stop moving right
-                noRight = true;
+                //  если пакмен выходит за правую границу окра 
                 goRight = false;
             }
 
-            pacmanHitBox = new Rect(Canvas.GetLeft(pacman), Canvas.GetTop(pacman), pacman.Width, pacman.Height); // asssign the pac man hit box to the pac man rectangle
+            pacmanHitBox = new Rect(Canvas.GetLeft(pacman), Canvas.GetTop(pacman), pacman.Width, pacman.Height); // вписываем пакмена в прямоугольник для учета столкновений
 
-            // below is the main game loop that will scan through all of the rectangles available inside of the game
+            // отслеживание столкновений
             foreach (var x in FirstLevel.Children.OfType<Rectangle>())
             {
-                // loop through all of the rectangles inside of the game and identify them using the x variable
+                // все прямоугольники идентифицируем как х
 
 
-                Rect hitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height); // create a new rect called hit box for all of the available rectangles inside of the game
+                Rect hitBox = new Rect(Canvas.GetLeft(x), Canvas.GetTop(x), x.Width, x.Height); // создаем hitbox для всех прямоугольников
 
-                // find the walls, if any of the rectangles inside of the game has the tag wall inside of it
+                // ищем стены
                 if ((string)x.Tag == "wall")
                 {
-                    // check if we are colliding with the wall while moving left if true then stop the pac man movement
+                    // проверка столкновения пакмена со стеной при движении влево
                     if (goLeft == true && pacmanHitBox.IntersectsWith(hitBox))
                     {
-                        Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) + 10);
+                        Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) + 5);
                         noLeft = true;
                         goLeft = false;
                     }
-                    // check if we are colliding with the wall while moving right if true then stop the pac man movement
+                    // проверка столкновения пакмена со стеной при движении вправо
                     if (goRight == true && pacmanHitBox.IntersectsWith(hitBox))
                     {
-                        Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) - 10);
+                        Canvas.SetLeft(pacman, Canvas.GetLeft(pacman) - 5);
                         noRight = true;
                         goRight = false;
                     }
-                    // check if we are colliding with the wall while moving down if true then stop the pac man movement
+                    // проверка столкновения пакмена со стеной при движении вниз
                     if (goDown == true && pacmanHitBox.IntersectsWith(hitBox))
                     {
-                        Canvas.SetTop(pacman, Canvas.GetTop(pacman) - 10);
+                        Canvas.SetTop(pacman, Canvas.GetTop(pacman) - 5);
                         noDown = true;
                         goDown = false;
                     }
-                    // check if we are colliding with the wall while moving up if true then stop the pac man movement
+                    // проверка столкновения пакмена со стеной при движении вверх
                     if (goUp == true && pacmanHitBox.IntersectsWith(hitBox))
                     {
-                        Canvas.SetTop(pacman, Canvas.GetTop(pacman) + 10);
+                        Canvas.SetTop(pacman, Canvas.GetTop(pacman) + 5);
                         noUp = true;
                         goUp = false;
                     }
 
                 }
 
-                // check if the any of the rectangles has a coin tag inside of them
+                // ищем монетки
                 if ((string) x.Tag == "coin")
                 {
-                    // if pac man collides with any of the coin and coin is still visible to the screen
                     if (pacmanHitBox.IntersectsWith(hitBox) && x.Visibility == Visibility.Visible)
                     {
-                        // set the coin visiblity to hidden
+                        // при столкновении пакмена с монеткой делаем ее невидимой
                         x.Visibility = Visibility.Hidden;
-                        // add 1 to the score
+                        // повышаем счет
                         score++;
                     }
 
                 }
 
-                // if any rectangle has the tag ghost inside of it
+                // ищем призраков
                 if ((string) x.Tag == "ghost")
                 {
-                    // check if pac man collides with the ghost 
                     if (pacmanHitBox.IntersectsWith(hitBox))
                     {
-                        // if collision has happened, then end the game by calling the game over function and passing in the message
-                        GameOver("Вы проиграли - призраки поймали вас! Хотите начать новую игру?");
+                       // если пакмен столкнулся с призраком, выводим сообщение
+                       GameOver("Вы проиграли - призраки поймали вас! Хотите начать новую игру?");
                     }
 
-                    // if there is a rectangle called orange guy in the game
-                    if (x.Name.ToString() == "orangeghost")
+                    if (x.Name.ToString() == "orangeghost") // если есть прямоугольник оранжевый призрак
                     {
-                        // move that rectangle to towards the left of the screen
-                        Canvas.SetLeft(x, Canvas.GetLeft(x) - ghostSpeed);
+                        // описание движения оранжевого призрака
+                        Canvas.SetLeft(x, Canvas.GetLeft(x) - ghostSpeed / 5);
+                        Canvas.SetTop(x, Canvas.GetTop(x) - ghostSpeed / 2);
 
                     }
-                    else if (x.Name.ToString() == "redghost")
+                    else if (x.Name.ToString() == "redghost") // если есть прямоугольник красный призрак
                     {
-                        // move that rectangle to towards the left of the screen
-                        Canvas.SetLeft(x, Canvas.GetLeft(x) - ghostSpeed / 2);
+                        // описание движения красного призрака
+                        Canvas.SetLeft(x, Canvas.GetLeft(x) - ghostSpeed / 5);
                         Canvas.SetTop(x, Canvas.GetTop(x) + ghostSpeed / 2);
 
                     }
                     else
                     {
-                        // other ones can move towards the right of the screen
+                        // описание движения розового призрака
                         Canvas.SetLeft(x, Canvas.GetLeft(x) + ghostSpeed);
+
                     }
 
-                    // reduce one from the current ghost step integer
+                    // уменьшение текущего призрачного шага
                     currentGhostStep--;
 
-                    // if the current ghost step integer goes below 1 
+                    // если текущий призрачный шаг становится меньше 1
                     if (currentGhostStep < 1)
                     {
-                        // reset the current ghost step to the ghost move step value
+                        // сброс текущего шага перемещения призрака до значения шага перемещения призрака
                         currentGhostStep = ghostMoveStep;
-                        // reverse the ghost speed integer
+                        // обратная скорость движения
                         ghostSpeed = -ghostSpeed;
 
                     }
@@ -292,23 +283,21 @@ namespace Pacman
             }
 
 
-            // if the player collected 85 coins in the game
-            if (score == 1)
+            // если все монетки собраны
+            if (score == 26)
             {
-                // show game over function with the you win message
+                // выводим сообщение о победе
                 GameOver("Вы победили и собрали все монетки! Хотите начать новую игру?");
             }
         }
 
         private void GameOver(string message)
         {
-            // inside the game over function we passing in a string to show the final message to the game
-            gameTimer.Stop(); // stop the game timer
-            // show a mesage box with the message that is passed in this function
+            gameTimer.Stop(); // остановка игрового таймера
+            // вывод окна с сообщением
 
             if (MessageBox.Show(message, "Pacman Game", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-            // when the player clicks ok on the message box
-            // restart the application
+            // когда игрок нажимает кнопку "ок", игра перезапускается
             {
                 System.Diagnostics.Process.Start(Application.ResourceAssembly.Location);
             }

@@ -6,28 +6,80 @@
         xmlns:local="clr-namespace:Pacman"
         mc:Ignorable="d"
         Title="Pacman Game" Height="600" Width="800">
-    <Canvas Name="FirstLevel" KeyDown="CanvasKeyDown" Focusable="True" Background="Black">
+    <Canvas Name="FirstLevel" KeyDown="CanvasKeyDown" Focusable="True" Background="#e3b9bc">
 
-        <Label FontSize="20" Name="Score" Foreground="White" Content="Score: 0"/>
+        <Label FontSize="20" Name="Score" Foreground="#461220" Content="Score: 0" HorizontalAlignment="Left" Height="42" VerticalAlignment="Top" Canvas.Top="-10" Canvas.Left="1"/>
 
-        <Rectangle Name="pacman" Width="30" Height="30" Fill="Yellow" Canvas.Left="40" Canvas.Top="110" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Name="redghost" Tag="ghost" Width="30" Height="30" Fill="Red" Canvas.Left="370" Canvas.Top="192"/>
-        <Rectangle Name="pinkghost" Tag="ghost" Width="30" Height="30" Fill="Pink" Canvas.Left="55" Canvas.Top="262" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-        <Rectangle Name="orangeghost" Tag="ghost" Width="30" Height="30" Fill="Orange" Canvas.Left="641" Canvas.Top="177" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Name="pacman" Width="30" Height="30" Fill="Yellow" Canvas.Left="427" Canvas.Top="54" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Name="redghost" Tag="ghost" Width="40" Height="30" Fill="Red" Canvas.Left="644" Canvas.Top="134"/>
+        <Rectangle Name="pinkghost" Tag="ghost" Width="40" Height="30" Fill="Pink" Canvas.Left="146" Canvas.Top="145" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Name="orangeghost" Tag="ghost" Width="40" Height="30" Fill="Orange" Canvas.Left="236" Canvas.Top="410" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
-        <Rectangle Tag="wall" Stroke="Aqua" StrokeThickness="3" Height="21" Width="689" Canvas.Left="43" Canvas.Top="42" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="wall" Stroke="Aqua" StrokeThickness="3" Height="21" Width="689" Canvas.Left="43" Canvas.Top="534" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-        <Rectangle Tag="wall" Stroke="Aqua" StrokeThickness="3" Height="21" Width="689" Canvas.Left="43" Canvas.Top="297" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="758" Canvas.Left="21" Canvas.Top="22" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="70" Canvas.Left="21" Canvas.Top="144" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Top"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="243" Width="20" Canvas.Left="71" Canvas.Top="145" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="142" Width="20" Canvas.Left="21" Canvas.Top="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="143" Width="20" Canvas.Left="759" Canvas.Top="22" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="212" Width="20" Canvas.Left="21" Canvas.Top="368" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="212" Width="20" Canvas.Left="759" Canvas.Top="368" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="243" Width="20" Canvas.Left="709" Canvas.Top="145" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="70" Canvas.Left="21" Canvas.Top="368" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="70" Canvas.Left="709" Canvas.Top="145" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" VerticalAlignment="Top"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="70" Canvas.Left="709" Canvas.Top="368" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="758" Canvas.Left="21" Canvas.Top="560" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Left" VerticalAlignment="Center"></Rectangle>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="93" Width="20" Canvas.Left="388" Canvas.Top="283" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="58" Width="20" Canvas.Left="486" Canvas.Top="318" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="58" Width="20" Canvas.Left="292" Canvas.Top="318" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="23" Width="212" Canvas.Left="294" Canvas.Top="353" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="72" Width="95" Canvas.Left="462" Canvas.Top="182" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="72" Width="95" Canvas.Left="246" Canvas.Top="182" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="111" Width="20" Canvas.Left="175" Canvas.Top="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="111" Width="20" Canvas.Left="612" Canvas.Top="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="78" Width="20" Canvas.Left="388" Canvas.Top="22" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="11" Width="45" Canvas.Left="81" Canvas.Top="86" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="11" Width="45" Canvas.Left="674" Canvas.Top="86" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="669" Canvas.Top="172" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="669" Canvas.Top="248" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="669" Canvas.Top="327" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="86" Canvas.Top="172" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="86" Canvas.Top="248" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="20" Width="45" Canvas.Left="86" Canvas.Top="327" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="112" Width="20" Canvas.Left="557" Canvas.Top="468" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="112" Width="20" Canvas.Left="226" Canvas.Top="468" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="67" Width="20" Canvas.Left="321" Canvas.Top="421" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="68" Width="20" Canvas.Left="462" Canvas.Top="443" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="24" Width="100" Canvas.Left="382" Canvas.Top="487" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="23" Width="100" Canvas.Left="321" Canvas.Top="421" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="76" Width="82" Canvas.Left="86" Canvas.Top="439" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="wall" Stroke="#bf9686" StrokeThickness="5" Height="76" Width="82" Canvas.Left="633" Canvas.Top="439" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
 
-
-
-
-
-
-
-        <Rectangle Tag="coin" Width="15" Height="15" Fill="Gold" Canvas.Left="153" Canvas.Top="377"/>
-
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="56" Canvas.Top="410" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="424" Canvas.Top="461" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="363" Canvas.Top="461" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="676" Canvas.Top="211" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="676" Canvas.Top="292" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="111" Canvas.Top="211" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="111" Canvas.Top="292" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="728" Canvas.Top="410" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="728" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="606" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="185" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="56" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="390" Canvas.Top="174" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="390" Canvas.Top="238" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="449" Canvas.Top="318" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="340" Canvas.Top="318" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="504" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="284" Canvas.Top="524" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="56" Canvas.Top="58" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="728" Canvas.Top="53" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="648" Canvas.Top="53" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="138" Canvas.Top="58" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="56" Canvas.Top="114" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="728" Canvas.Top="114" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="515" Canvas.Top="61" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+        <Rectangle Tag="coin" Width="16" Height="16" Fill="Gold" Canvas.Left="276" Canvas.Top="61" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
     </Canvas>
 </Window>
